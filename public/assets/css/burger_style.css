@@ -1,0 +1,40 @@
+
+/* burger image background */
+      body{
+          background-image: url(../img/9CdvDR.jpg);
+      }
+/* titile text  */
+      #main-text{
+          color: #f5a700;
+          text-transform: uppercase;
+          margin-top:30px;
+          margin-bottom: 30px;
+          font-size:4rem;
+          -webkit-text-stroke: 2px rgb(197, 8, 8);
+          font-weight: bold;
+          font-family: Arial, Helvetica, sans-serif
+      }
+      /* bg color for container */
+      #bGolor{
+          background-color:rgba(235, 194, 13, 0.8);
+          border-radius:25px;
+      }
+      /* bg color for outer container */
+      .warper{
+          background-color:rgba(235, 194, 13, 0.2);
+          border: 2px solid white;
+          padding-top: 20px;
+          border-radius:20px;
+      }
+/* txt above input fild */
+      .reqText{
+          color:rgb(223, 171, 3);
+          background-color:black;
+          font-size: 1.6rem;
+
+      }
+
+/* margin setting for card */
+      .card{
+          margin:15px;
+      }

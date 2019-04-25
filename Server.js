@@ -1,18 +1,27 @@
 
-//dependencies
-var express = require("require");
-var bodyParser = require("body-parser");
-var app=express();
-//set handlebars.
-var exphbs =require("express-handlebars");
-// Import routes and give the server access to them.
-var route= require("./controllers/burgers_controllers.js");
-var port =process.env.PORT || 8080;
-// server static content for the app from the view directory in the application directory.
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extend:false}));
+// Dependencies
+var express = require('express');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override')
 
-app.engine("handlebars",exphbs({defaultLayout:"main"}));
-app.set("view engine", "handlebars");
-app.use("/", route)
-app.listen(port);
+var app = express();
+//Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static(process.cwd() + '/public'));
+// app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// express-Handlebars
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+
+var router = require('./controllers/burgers_controllers.js');
+app.use('/', router);
+
+// Open Server
+var port = process.env.PORT || 8080;
+app.listen(port, function(){
+    console.log("server listingig on loscalhost: "+ port)
+});

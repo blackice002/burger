@@ -1,0 +1,74 @@
+
+
+{{!-- app titile --}}
+<div class="container">
+  <h1 class=" text-center" id="main-text">Eat The Burger!</h1>
+</div>
+{{!-- outer container --}}
+<div class="container warper">
+  {{!-- inner container --}}
+  <div class="container" id="bGolor">
+    {{!-- posting the new burger from user --}}
+    <div class="row">
+      {{!-- responsible setting for card --}}
+      <div class="col-lg-6 col-sm-12">
+        <div class="card">
+          <div class="card-header text-center text-uppercase">
+            <h4>Ready to eat!</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              {{!-- data from user input --}}
+              {{#each burgers}}
+              {{#unless devoured}}
+              <form action="burger/eat/{{id}}" method="POST">
+                <div class="input-group mt-3">
+                  <li class="form-control">{{id}}. {{burger_name}}</li>
+                  <span class="input-group-btn">
+                    <button class="btn btn-success devour-button" type="submit">Devour It!</button>
+                  </span>
+                </div>
+              </form>
+              {{/unless}}
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+        <div class="card">
+          <h4 class="card-header  text-uppercase text-center">Already eaten!</h4>
+          <div class="card-body">
+
+            <!-- Dynamically Insert Eaten Burgers Here -->
+            {{#each burgers}}
+            {{#if this.devoured}}
+            <div class="form-group">
+              <li class="form-control">{{this.id}}. {{this.burger_name}}</li>
+            </div>
+            </form>
+            {{/if}}
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- create the new burger --}}
+
+  <div class="container text-center">
+    <form action="burger/create" method="POST">
+
+      <!-- Burger Input Box -->
+      <div class="form-group">
+        <label for="new_burger" class="text-uppercase reqText">Request a new burger and place your order!</label>
+        <textarea class="form-control" columns="6" rows="6" id="new_burger" name="burger_name"></textarea>
+        <button id="submit-button" type="submit" class="btn btn-danger">Place Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<img src="public/assets/img/screen 1.png" alt="app working">

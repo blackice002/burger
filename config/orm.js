@@ -1,29 +1,61 @@
-var connection = require("../config/connection.js");
 
+//  Dependencies
+var connection = require('./connection.js');
+
+
+// Connect to MySQL database
+connection.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  };
+  console.log('connected as id ' + connection.threadId);
+});
+
+
+// Methods for MySQL commands
 var orm = {
-    selectAll: function (table, allBurger) {
-        var query = "SELECT * FROM " + table + ";"
-        connection.query(query, function (err, res) {
-            if (err) throw err;
-            allBurger(res);
-        })
-    },
-    addBurger: function (name, burgerAdd) {
-        var query = "INSERT INTO burgers (burger_name, devoured) VALUES(?, 0)";
-        connection.query(query, function (err, res) {
-            if (err) throw err;
-            burgerAdd(res);
-        });
-    },
-    updateBurger: function (id, burgerUpdate) {
-        var query = "UPDATE burgers SET devoured = 1 WHERE id =?";
-        connection.query(query, [id], function (err, res) {
-            if (err) throw err;
-            burgerUpdate(res);
-        });
-    }
+
+  // selectAll()
+  selectAll: function(callback) {
+
+    // Run MySQL Query
+    connection.query('SELECT * FROM burgers', function (err, result) {
+      if (err) throw err;
+      callback(result);
+    });
+
+  },
+
+  // insertOne()
+  insertOne: function(burger_name, callback){
+
+  
+    // Run MySQL Query
+    connection.query('INSERT INTO burgers SET ?', {
+      burger_name: burger_name,
+      devoured: false,
+    }, function (err, result) {
+      if (err) throw err;
+      callback(result);
+    });
+
+  },
+
+  // updateOne()
+  updateOne: function(burgerID, callback){
+
+    // Run MySQL Query
+    connection.query('UPDATE burgers SET ? WHERE ?', [{devoured: true}, {id: burgerID}], function (err, result) {
+        if (err) throw err;
+        callback(result);
+      });
+
+  }
 
 };
 
-// orm export
-module.export = orm;
+
+
+// Export the ORM object in module.exports.
+module.exports = orm;
