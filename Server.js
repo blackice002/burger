@@ -21,7 +21,7 @@ var router = require('./controllers/burgers_controllers.js');
 app.use('/', router);
 
 // Open Server
-var port = process.env.PORT || 8080;
-app.listen(port, function(){
-    console.log("server listingig on loscalhost: "+ port)
+var PORT = process.env.PORT || 8080;
+app.listen(PORT, function(){
+    console.log("server listingig on loscalhost: "+ PORT)
 });
